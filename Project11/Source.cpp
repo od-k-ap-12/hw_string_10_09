@@ -4,6 +4,7 @@ class MyString
 {
     char* str; // указатель на строку
     int length; // длина строки
+    static int count;
 public:
     // методы класса
     MyString();
@@ -19,12 +20,16 @@ public:
     void MyStrCat(MyString& b); 
     void MyDelChr(char c); 
     int MyStrCmp(MyString& b); 
+    static int GetCount();
 };
+
+int MyString::count = 0;
 
 MyString::MyString()
 {
     str = nullptr;
     length = 81;
+    count++;
 }
 
 MyString::MyString(MyString& obj)
@@ -32,6 +37,7 @@ MyString::MyString(MyString& obj)
     str = new char[strlen(obj.str) + 1];
     strcpy_s(str, strlen(obj.str) + 1, obj.str);
     length = this->MyStrLen();
+    count++;
 }
 
 MyString::MyString(const char* s)
@@ -39,6 +45,7 @@ MyString::MyString(const char* s)
     str = new char[strlen(s) + 1];
     strcpy_s(str, strlen(s) + 1, s);
     length = strlen(s);
+    count++;
 }
 
 MyString::~MyString()
@@ -107,6 +114,10 @@ int MyString::MyStrCmp(MyString& b)
     else {
         return 0;
     }
+}
+int MyString::GetCount()
+{
+    return count;
 }
 void MyString::MyStrcpy(MyString& obj) 
 {
@@ -195,5 +206,5 @@ int main() {
     string3.MyDelChr('c');
     cout << endl;
     string3.PrintMyString();
-    
+    cout << endl <<"Count: " << string1.GetCount();
 }
