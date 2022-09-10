@@ -55,7 +55,7 @@ MyString::~MyString()
 
 void MyString::InputMyString()
 {
-    char buff[200];
+    char buff[81];
     cout << "Enter string -> ";
     cin.getline(buff, 81);
     if (str != nullptr)
