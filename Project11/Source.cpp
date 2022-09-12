@@ -8,7 +8,7 @@ class MyString
 public:
     // методы класса
     MyString();
-    MyString(MyString& obj);
+    MyString(const MyString& obj);
     MyString(const char* s);
     ~MyString();
     void InputMyString();
@@ -32,11 +32,11 @@ MyString::MyString()
     count++;
 }
 
-MyString::MyString(MyString& obj)
+MyString::MyString(const MyString& obj)
 {
     str = new char[strlen(obj.str) + 1];
     strcpy_s(str, strlen(obj.str) + 1, obj.str);
-    length = this->MyStrLen();
+    length = obj.length;
     count++;
 }
 
