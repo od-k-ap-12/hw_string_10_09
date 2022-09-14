@@ -12,14 +12,14 @@ public:
     MyString(const char* s);
     ~MyString();
     void InputMyString();
-    void PrintMyString(); 
+    void PrintMyString()const; 
     void MyStrcpy(MyString& obj);
-    bool MyStrStr(const char* str);
-    int  MyChr(char c);
-    int MyStrLen();
-    void MyStrCat(MyString& b); 
-    void MyDelChr(char c); 
-    int MyStrCmp(MyString& b); 
+    bool MyStrStr(const char* str)const;
+    int  MyChr(char c)const;
+    int MyStrLen()const;
+    void MyStrCat(MyString& b)const; 
+    void MyDelChr(char c)const; 
+    int MyStrCmp(MyString& b)const; 
     static int GetCount();
 };
 
@@ -66,17 +66,17 @@ void MyString::InputMyString()
     strcpy_s(str, strlen(buff) + 1, buff);
 }
 
-void MyString::PrintMyString() 
+void MyString::PrintMyString()const 
 {
     cout << str;
 }
 
-void MyString::MyStrCat(MyString& b) 
+void MyString::MyStrCat(MyString& b)const 
 {
     int buffsize = 81;
    strcat_s(str, buffsize , b.str);
 }
-void MyString::MyDelChr(char c)
+void MyString::MyDelChr(char c)const 
 {
     char buff[81];
     int j = 0;
@@ -93,7 +93,7 @@ void MyString::MyDelChr(char c)
 }
 
 
-int MyString::MyStrLen()
+int MyString::MyStrLen()const
 {
     int counter = 0;
     for (int i = 0; i < length; i++) {
@@ -101,7 +101,7 @@ int MyString::MyStrLen()
     }
     return counter;
 }
-int MyString::MyStrCmp(MyString& b)
+int MyString::MyStrCmp(MyString& b)const
 {
     int string1 = strlen(str);
     int string2 = strlen(b.str);
@@ -119,7 +119,7 @@ int MyString::GetCount()
 {
     return count;
 }
-void MyString::MyStrcpy(MyString& obj) 
+void MyString::MyStrcpy(MyString& obj)
 {
     if (str != nullptr)
     {
@@ -128,7 +128,7 @@ void MyString::MyStrcpy(MyString& obj)
     str = new char[strlen(obj.str) + 1];
     strcpy_s(str, strlen(obj.str) + 1, obj.str);
 }
-int MyString::MyChr(char c) 
+int MyString::MyChr(char c)const 
 {
     int counter = 0;
     for (int i = 0; i < strlen(str); i++) {
@@ -143,7 +143,7 @@ int MyString::MyChr(char c)
     }
 
 }
-bool MyString::MyStrStr(const char* str)
+bool MyString::MyStrStr(const char* str)const
 {
     int i = 0, j = 0;
     int temp;
