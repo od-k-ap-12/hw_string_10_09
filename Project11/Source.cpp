@@ -21,9 +21,54 @@ public:
     void MyDelChr(char c)const; 
     int MyStrCmp(MyString& b)const; 
     static int GetCount();
+    void operator()();
+    operator char* ();
+    operator int();
+    char operator[](int index);
+    MyString& operator=(const MyString& obj);
 };
 
 int MyString::count = 0;
+
+void MyString::operator()()
+{
+    cout << str;
+}
+
+MyString& MyString::operator=(const MyString& obj)
+{
+    if (this == &obj)
+    {
+        return *this;
+    }
+    if (str != nullptr)
+    {
+        this->~MyString();
+    }
+    str = new char[strlen(obj.str) + 1];
+    strcpy_s(str, strlen(obj.str) + 1, obj.str);
+    length = obj.length;
+
+    return *this;
+}
+
+char MyString::operator[](int index)
+{
+    if (index >= 0 && index < strlen(str))
+    {
+        return str[index];
+    }
+    return '\0';
+}
+
+MyString::operator int()
+{
+    return length;
+}
+MyString::operator char* ()
+{
+    return str;
+}
 
 MyString::MyString()
 {
@@ -169,6 +214,12 @@ bool MyString::MyStrStr(const char* str)const
 int main() {
     MyString string1("Hello");
     MyString string2("World");
+    char* str1 = string1;
+    cout << str1 << endl;
+    string1();
+    cout << endl;
+    cout<<string1[0];
+    cout << endl;
     string1.PrintMyString(); cout << endl;
     string2.PrintMyString();
     cout << endl << "MyStrLen: " << endl;
