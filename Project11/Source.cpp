@@ -10,6 +10,7 @@ public:
     MyString();
     MyString(const MyString& obj);
     MyString(const char* s);
+    MyString(MyString&& obj2);
     ~MyString();
     void InputMyString();
     void PrintMyString()const; 
@@ -26,9 +27,50 @@ public:
     operator int();
     char operator[](int index);
     MyString& operator=(const MyString& obj);
+    MyString& operator=(MyString&& obj2);
+    MyString(initializer_list<char> a);
 };
 
 int MyString::count = 0;
+
+MyString::MyString(initializer_list<char> a)
+{
+    cout << "Initializer_list constructor\n";
+    length = a.size(); // получаем размер 
+    str = new char[length];
+    for (auto x = a.begin(); x != a.end(); x++)
+    {
+        *str = *x;
+        str++;
+    }
+    str -= length;// смещение указателя на начало массива 
+
+
+}
+
+MyString::MyString(MyString&& obj2) // move constructor
+{
+    str = obj2.str;
+    obj2.str = nullptr;
+
+    length = obj2.length;
+    obj2.length = 0;
+}
+
+MyString& MyString::operator=(MyString&& obj2)
+{
+    if (str != nullptr)
+    {
+        delete[] str;
+    }
+    str = obj2.str; // 
+    obj2.str = nullptr;
+
+    length = obj2.length;
+    obj2.length = 0;
+
+    return *this;
+}
 
 void MyString::operator()()
 {
@@ -212,6 +254,9 @@ bool MyString::MyStrStr(const char* str)const
 }
 
 int main() {
+    MyString obj{ 'H','e','l','l','o','\0'};
+    obj.PrintMyString();
+    cout << endl << endl;
     MyString string1("Hello");
     MyString string2("World");
     char* str1 = string1;
